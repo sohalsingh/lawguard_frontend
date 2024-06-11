@@ -1,23 +1,17 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useRouter } from 'next/router';
 
-const Login = () => {
+const Signup = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const { login } = useAuth();
+    const { signup } = useAuth();
     const router = useRouter();
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        await login(username, password);
+        await signup(username, password);
         router.push('/contract-upload');
-    };
-
-    const handleSignUp = async (e: React.FormEvent) => {
-        e.preventDefault();
-        router.push('/signup');
     };
 
     return (
@@ -32,7 +26,7 @@ const Login = () => {
             <div className="flex flex-col md:flex-row min-h-[calc(100vh-64px)] px-4 flex-grow">
                 <div className="flex justify-center items-center w-full md:w-1/2">
                     <div className="bg-gray-50 p-8 rounded-lg shadow-md w-full mt-10 mb-10 md:mb-0">
-                        <h1 className="text-4xl font-bold mb-8 text-center text-black">Login</h1>
+                        <h1 className="text-4xl font-bold mb-8 text-center text-black">Sign Up</h1>
                         <form onSubmit={handleSubmit} className="mb-8">
                             <div className="mb-4">
                                 <label htmlFor="username" className="block text-sm font-medium text-gray-700">Username</label>
@@ -57,21 +51,21 @@ const Login = () => {
                                 />
                             </div>
                             <button type="submit" className="w-full bg-black text-white py-2 px-4 rounded hover:bg-gray-900 focus:outline-none focus:ring focus:ring-gray-900 focus:ring-opacity-50">
-                                Login
+                                Sign Up
                             </button>
                         </form>
                         <div className="text-center">
-                            <p className="text-gray-600 mb-4">Do not have an account?</p>
-                            <button onClick={handleSignUp} className="text-blue-500 font-semibold">Create an Account</button>
+                            <p className="text-gray-600 mb-4">Already have an account?</p>
+                            <button onClick={() => router.push('/login')} className="text-blue-500 font-semibold">Login</button>
                         </div>
                     </div>
                 </div>
                 <div className="hidden md:flex justify-center items-center w-full md:w-1/2">
-                    <img src="/image.png" alt="Login Image" className="w-full h-auto rounded-xl shadow-md" />
+                    <img src="/image.png" alt="Signup Image" className="w-full h-auto rounded-xl shadow-md" />
                 </div>
             </div>
 
-{/* About Section */}
+            {/* About Section */}
 <div className="bg-white py-8">
     <div className="container mx-auto">
         <h2 className="text-3xl font-bold mb-4 text-center text-black">About Corpq AI</h2>
@@ -104,4 +98,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default Signup;
