@@ -5,13 +5,24 @@ import { useRouter } from 'next/router';
 const Signup = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const { signup } = useAuth();
     const router = useRouter();
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        await signup(username, password);
-        router.push('/contract-upload');
+
+        const res = await fetch('http://localhost:4000/api/auth/signup', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ username, password }),
+        });
+
+        if (res.ok) {
+            router.push('/contract-upload');
+        } else {
+            // Handle error
+        }
     };
 
     return (
@@ -66,27 +77,26 @@ const Signup = () => {
             </div>
 
             {/* About Section */}
-<div className="bg-white py-8">
-    <div className="container mx-auto">
-        <h2 className="text-3xl font-bold mb-4 text-center text-black">About Corpq AI</h2>
-        <p className="text-lg text-gray-700 mb-6 text-center">
-            Corpq AI is dedicated to simplifying contract analysis with the power of AI.
-            Our platform helps you identify risks, summarize contracts, and suggest the best legal advisors for your needs.
-        </p>
-        <p className="text-lg text-gray-700 mb-6 text-center">
-            At Corpq AI, we believe in making legal work more accessible, efficient, and secure. 
-            By leveraging cutting-edge AI technologies, we provide you with actionable insights to navigate complex legal documents effortlessly.
-        </p>
-        <p className="text-lg text-gray-700 mb-6 text-center">
-            Join us in transforming how legal work is done with innovative technology and expert support.
-            Whether you are a business owner, legal professional, or individual, Corpq AI is your trusted partner for legal clarity and peace of mind.
-        </p>
-        <p className="text-lg text-gray-700 mb-6 text-center">
-            Contact us today to learn more about how Corpq AI can streamline your legal processes and empower your decision-making.
-        </p>
-    </div>
-</div>
-
+            <div className="bg-white py-8">
+                <div className="container mx-auto">
+                    <h2 className="text-3xl font-bold mb-4 text-center text-black">About Corpq AI</h2>
+                    <p className="text-lg text-gray-700 mb-6 text-center">
+                        Corpq AI is dedicated to simplifying contract analysis with the power of AI.
+                        Our platform helps you identify risks, summarize contracts, and suggest the best legal advisors for your needs.
+                    </p>
+                    <p className="text-lg text-gray-700 mb-6 text-center">
+                        At Corpq AI, we believe in making legal work more accessible, efficient, and secure.
+                        By leveraging cutting-edge AI technologies, we provide you with actionable insights to navigate complex legal documents effortlessly.
+                    </p>
+                    <p className="text-lg text-gray-700 mb-6 text-center">
+                        Join us in transforming how legal work is done with innovative technology and expert support.
+                        Whether you are a business owner, legal professional, or individual, Corpq AI is your trusted partner for legal clarity and peace of mind.
+                    </p>
+                    <p className="text-lg text-gray-700 mb-6 text-center">
+                        Contact us today to learn more about how Corpq AI can streamline your legal processes and empower your decision-making.
+                    </p>
+                </div>
+            </div>
 
             {/* Footer */}
             <footer className="bg-black text-white py-4">
